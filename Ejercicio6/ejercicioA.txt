@@ -1,0 +1,20 @@
+main: 
+1 li a0, 13 #Prologo, argumento de la funcion 
+2 li a1, 5 #Prologo, argumento de la funcion
+3 jal FUNCION # llamada a la funcion
+4 li a1, 3 # 13 mod(5) = 3 # valor esperado 
+5 bne a0, a1, noFunciona # compara si el valor esperado es igual al obtenido 
+6 funciona: li a1, 1 # si funciona 1 en a1 
+7 j fin 
+8 noFunciona: li a1, 0 # si no funciona 0 en a1 
+9 fin: j fin # fin del test 
+FUNCION: nombre de la funcion resto 
+1 blt a0, a1, terminar # compara a0 < a1 si es asi salta a terminar 
+2 sub a2, a0, a1 # a2 = a0 - a1  caso base 
+3 jal FUNCION # se llama a si misma 
+4 terminar: ret
+
+Errores: 
+1) no se guarda espacio en el stack para la direccion de retorno basicamento no hay prologo 
+no tiene epilogo. 
+2) despues no hay errores de convencion.

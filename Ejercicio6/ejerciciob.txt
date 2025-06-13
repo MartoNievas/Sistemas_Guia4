@@ -1,0 +1,43 @@
+main: 
+1 li a0, 4 # argumento de la funcion 
+2 jal FUNCION # llamada a la funcion 
+3 li a1, 5 # valor esperado 
+4 bne a0, a1, noFunciona # compara el valor esperado con el retornado 
+5 li a0, 5 # argumento de la funcion 
+6 jal FUNCION # llamada a la funcion 
+7 li a1, 8 # compara el valor esperado con el retornado 
+8 bne a0, a1, noFunciona 
+9 li a0, 6 # argumento de la funcion 
+10 jal FUNCION # llamada a la funcion 
+11 li a1, 13 # compara el valor esperado con el retornado 
+12 bne a0, a1, noFunciona
+13 funciona: li a1, 1 # si funciona 1 en a1 
+14 j fin
+15 noFunciona: li a1, 0 # si no funciona 0 en a1 
+16 fin: j fin
+FUNCION: Nombre fibonnacci  
+1 addi sp, sp, -8 # gurada espacio en la pila 
+2 sw a0, (0)sp # guarda el valor de entrada a0 en la pila 
+3 sw ra, (4)sp # guarda la direccion de retorno en la pila 
+4 li a1, 1 # cargo 1 en a1 
+5 beq a0, zero, casoBase0 # a0 == 0 entonces salta a casoBase0
+6 beq a0, a1, casoBase1 # a0 == 1 salta a casoBase1 
+7 addi a0, a0, -1 # caso contraro hace a0 = a0 - 1 
+8 jal FUNCION # llama a la funcion a0 = a0 - 1
+9 mv a1, a0 # copia el valor de a0 en a1 
+10 lw a0, (0)sp # restaura el valor de a0 antes del llamado 
+11 addi a0, a0, -2 # ahora a0 = a0 - 2 
+12 jal FUNCION # llama a la funcion con a0 = a0 - 2 
+13 add a0, a1, a0 # FUNCION(a0) = FUNCION(a0-1) + FUNCION(a0-2) 
+14 j epilogo # salta al epilogo
+15 casoBase0: li a0, 1 # caso base si a0 es 0 entonces devuelve 1
+16 j epilogo
+17 casoBase1: li a0, 1 # caso base si a0 es 1 devuelve 1 
+18 epilogo: lw ra, (4)sp # 
+19 addi sp,sp,8
+
+
+Estabas restaurando a0 desde la pila después de una llamada recursiva, lo que pisaba el valor devuelto por la función.
+
+En recursión, a0 es el lugar donde se devuelve el resultado, así que no se debe sobrescribir nunca tras un jal.
+ademas el espacio que se tenia en el stack no era suficiente 
