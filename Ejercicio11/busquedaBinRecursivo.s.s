@@ -32,7 +32,7 @@ busquedaBinRec:
     sw ra, 0(sp) 
     sw a0, 4(sp) 
     
-    bgt a2,a3,noEsta # si izq >= der entonces no esta  
+    bgt a2,a3,noEsta # si izq > der entonces no esta  
     #caso contrario 
     #calculo mid 
     add t0,a2,a3 # t0 = izq + der 

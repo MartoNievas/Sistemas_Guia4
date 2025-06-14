@@ -1,20 +1,14 @@
-Indique cuáles son las obligaciones y las garantías que tiene la función llamada y la llamadora. 
-Explique con sus palabras por qué cree que se usan estas reglas. ¿Cuál es la utilidad de una convención de llamada?
+Obligaciones de la función llamadora: la función llamadora tiene como obligaciones mantener los valores de los registros volátiles que necesite usar al retornar, por ejemplo
+los a0, ..., a7 o los t0, ..., t6. Además, se deben pasar los argumentos en los registros correctos a0, ..., a7.
 
+Obligaciones de la función llamada: la función llamada tiene como obligaciones mantener los valores de los registros no volátiles, debe guardarlos al comenzar en la pila y
+al finalizar restaurarlos, borrando el espacio reservado en la pila. Además, tiene que colocar el resultado en los registros a0 y a1.
 
-obligaciones de la función llamadora: la función llamadora tiene como obligaciones mantener los valores de los registros volátiles que necesite usar al retornar, por ejemplo
-los a0,..,a7 o los t0,...,t6. Ademas se deben pasar los argumentos en los registros correctos a0,...,a7. 
+Garantías de la función llamadora: las garantías que tiene la función llamadora son que los registros no volátiles se mantienen luego del llamado, el resultado del llamado
+estará almacenado en a0 y a1.
 
-obligaciones de la función llamada: la función llamada tiene como obligaciones mantener los valores de los registros no volátiles debe guardarlos al comenzar en la pila y 
-al finalizar restaurarlos borrando el espacio reservado en la pila. Ademas tiene que colocar el resultado en los registos a0 y a1. 
-
-
-garantías de la función llamadora: las garantías que tiene la función llamadora son que los registros no volátiles se mantiene luego del llamado, el resultado del llamado
-estará almacenado en a0 y a1 
-
-garantías de la función llamada: las garantías de la función llamada son que tienen los argumentos de entrada en los registros a0,...,a7 y puede usar libremente los
-registros volátiles sin necesidad de restaurarlos. 
+Garantías de la función llamada: las garantías de la función llamada son que tiene los argumentos de entrada en los registros a0, ..., a7 y puede usar libremente los
+registros volátiles sin necesidad de restaurarlos.
 
 Utilidad de la convención de llamada:
-La convención de llamada permite que distintas funciones (incluso escritas por distintos programadores o compiladores) puedan interoperar correctamente. Define claramente quién es responsable de preservar qué información. Esto evita errores, facilita la modularidad, el uso de bibliotecas, y hace más sencillo el análisis y depuración de programas.
-
+La convención de llamada permite que distintas funciones (incluso escritas por distintos programadores o compiladores) puedan interoperar correctamente. Define claramente quién es responsable de preservar qué información. Esto evita errores, facilita la modularidad, el uso de bibliotecas y hace más sencillo el análisis y depuración de programas.

@@ -15,6 +15,6 @@ FUNCION: nombre de la funcion resto
 4 terminar: ret
 
 Errores: 
-1) no se guarda espacio en el stack para la direccion de retorno basicamento no hay prologo 
+1) no se guarda espacio en el stack para la dirección de retorno basicamente no hay prologo 
 no tiene epilogo. 
-2) despues no hay errores de convencion.
+2) después no hay errores de convención.

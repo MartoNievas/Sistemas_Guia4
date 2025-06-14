@@ -1,11 +1,12 @@
-Ejercicio 7 Indique cuantos bytes de espacio en el stack se utilizan para encontrar el quinto
-elemento de Fibonacci en su implementacion recursiva ¿Cuantos se utilizarian para encontrar
-el n-esimo elemento? ¿Cuantos bytes utiliza su implementacion iterativa?
 
-La cantidad de bytes que se utilizan para encontrar el quinto elemento de fibonnacci en la version recursiva es 
-20 bytes debido a que en cada llamado se reservan 4 bytes para un numero de 32 bits, el cual es la direccion de retorno. 
-Para encontrar el n-esimo elemento seria 4*n bytes por esta misma razon cada llamado guarda la direccion de retorno. 
+Ejercicio 7
+Indique cuántos bytes de espacio en el stack se utilizan para encontrar el quinto
+elemento de Fibonacci en su implementación recursiva. ¿Cuántos se utilizarían para encontrar
+el n-ésimo elemento? ¿Cuántos bytes utiliza su implementación iterativa?
 
+La cantidad de bytes que se utilizan para encontrar el quinto elemento de Fibonacci en la versión recursiva es
+20 bytes, debido a que en cada llamado se reservan 4 bytes para un número de 32 bits, el cual es la dirección de retorno.
+Para encontrar el n-ésimo elemento sería 4*n bytes, por esta misma razón: cada llamado guarda la dirección de retorno.
 
-En cambio la version iterativa ocupa 0 bytes ya que se utiliza memorizacion para almacenar los 2 resultado anteriores, 
-y con eso calcular el fibonnacci n-esimo. 
+En cambio, la versión iterativa ocupa 0 bytes, ya que se utiliza memorización para almacenar los 2 resultados anteriores,
+y con eso calcular el Fibonacci n-ésimo
