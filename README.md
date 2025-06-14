@@ -17,7 +17,6 @@ El objetivo de este repositorio es:
 ## 📂 Contenido
 
 - Ejercicios resueltos paso a paso.
-- Explicaciones complementarias en algunos archivos `.md` o `.tex`.
 
 ---
 
