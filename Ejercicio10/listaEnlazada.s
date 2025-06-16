@@ -33,7 +33,7 @@ sumarListaEnlazada:
     li t0, 0 # contador = 0 
     lw t2,0(a0) # puntero al primer nodo 
     while: 
-    beq t2,zero, terminar # compra si la direccion del nodo no es 0 
+    beq t2,zero, terminar # compara si la direccion del nodo no es 0 
     lw t1,0(t2) # valor del nodo i 
 
     #caso contrario sumo al contador 
