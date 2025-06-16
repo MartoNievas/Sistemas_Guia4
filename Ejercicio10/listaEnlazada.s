@@ -4,8 +4,8 @@
     nodo2: .word 3 nodo3
     nodo1: .word -2 nodo2
     raiz: .word nodo1
-#En momoria cada nodo ocupa una palabra/word lo que es igual a 8 bytes y la raiz 
-# ocupa 4 , entonces una lista enlazada de n elementos ocuparia (n-1)*8 + 4 bytes en memoria. 
+#En momoria cada nodo ocupa dos palabra/word ya que tiene el valor del nodo un numero de 32 bits y la direccion de memoria del siguente elemento, lo que es igual a 8 bytes y la raiz que ocupa solo 4 bytes.
+#Ocupa 4 , entonces una lista enlazada de n elementos ocuparia (n-1)*8 + 4 bytes en memoria. 
 .text
 .global main
 .global sumarListaEnlazada
