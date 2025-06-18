@@ -11,49 +11,82 @@ len2: .word 5
 main: 
     #Tests Evaluar Monomio 
     
-    #Test1 
-    
-    li a0, 3 # x
-    li a1, 2 # c
-    li a2, 0 # p 
-    jal ra, EvaluarMonomio 
-    li a2, 2
-    bne a0,a2, noFunciona 
-    
-    
     #Tests EvaluarPolinomio 
     #Test 1
-    li a0, 1
-    la a1,polinomio1 
-    lw a2,len1 
+    li a0, 1 #x
+    la a1,polinomio1 # base del arreglo 
+    lw a2,len1  #longitud 
     jal ra, EvaluarPolinomio
     li a2, 11 
     bne a0,a2,noFunciona
     funciona:
         li a1,1 
-        j fin
+        j final
     noFunciona: 
         li a1, 0
-        j fin 
+        j final 
         
 
-    fin: j fin  
+    final: j final  
+mult: 
+    addi sp, sp, -16 
+    sw ra, 4(sp) 
+    
+    mv t0, x0
+    li t1,0 
+    
+    
+    bgez a0, check_a1 # si a0 >= 0 entonces chequeamos el signo de a1 
+    xori t1,t1,1
+    
+    check_a1: 
+        bgez a1,for
+        xori t1,t1,1
+        neg a1,a1
+    
+    for:
+        beqz a1,fin 
+        add t0,t0,a0
+        addi a1,a1,-1 
+        j for 
+    
+    fin:
+        beqz t1,epilogo 
+        neg t0,t0
+        
+    epilogo: 
+        mv a0,t0 
+        lw ra, 4(sp) 
+        addi sp,sp,16 
+        ret 
+
 EvaluarMonomio: 
     addi sp,sp,-16 
     sw ra,0(sp) 
-    li t0,1
+    sw a0,4(sp) #guardo valor original de a0
+    sw a1,8(sp) # guardo valor orignal de a1
+    sw a2,12(sp) # guardo valor original de a2 
+    
+    #caso si a2 es 0 
+    beqz a2, casoP0
+    
     
     while: 
     beq a2,zero,terminaPotencia
-    mul t0,t0,a0
+    mv a1,a0  #pasamo el mismo a0 dos veces como parametro 
+    jal ra, mult 
+    
+    
+    lw a1,8(sp) # restauro a1 
     addi a2,a2,-1
     j while
     
-    
+    casoP0: 
+        beq a0,zero, terminaPotencia #si a0 = 0 devuevlo 0 
+        li a0, 1 # caso contario a0 = 1 
     
     terminaPotencia: 
-    mv a0,t0
-    mul a0,a0,a1  
+    jal ra,mult # realizo c * a0^p 
     lw ra,0(sp) 
     addi sp,sp,16 
     ret 
@@ -73,16 +106,28 @@ EvaluarPolinomio:
         bge t0, a2, terminar
         slli t2,t0,2 # offset = i * 4 
         add t2,t2,a1 # direccion del arreglo 
-        sw t0,16(sp) # guardo el valor de i actual en el stack 
-        mv a2,t0  # este es el p = i 
-        lw a1,0(t2) # este es el c = arr[i]
+        
+        #---------------
+        #Preparamos los 3 argumentos para EvaluarMonomio 
+        
+        
+        lw a1, 0(t2)           # a1 = c = arr[i]
+        mv a2, t0              # a2 = p = i  
+        sw t0,16(sp) 
+        sw t1, 20(sp)
+        
+   
         jal ra, EvaluarMonomio 
         
+        
+        lw t0,16(sp)
+        lw t1,20(sp)
         add t1,t1,a0 #t1 += a0
-        lw a0,4(sp) # restauro el valor de a0 
-        lw a1,8(sp) # restauro el valor de a1
-        lw a2 12(sp) #restauro el valor de a2 
-        lw t0, 16(sp) #restauro el valor de i 
+        #restauro el valor de x 
+        lw a0, 4(sp) # X 
+        lw a1, 8(sp) # base del arreglo 
+        lw a2, 12(sp) # longitud del arreglo 
+ 
         addi t0,t0,1 # i += 1 
         j while1 
     terminar: 
